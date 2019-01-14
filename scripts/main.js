@@ -8,6 +8,8 @@ const taskInput = document.getElementById("myInput");
 const tasksHolderList = document.getElementById("myUL");
 
 var tasks = [];
+var delT;
+var delT2;
 
 
 addTaskButton.addEventListener("click", function() {
@@ -27,6 +29,8 @@ function loadFunction() {
     console.log("-")
     //updateTasks();
     var timeout = setTimeout(updateTasks, 50);
+
+    randomBackgroungImage();
 }
 
 //Cloud storage functions
@@ -45,7 +49,12 @@ function setStorage() {
         console.log('Value is set to ' + tasks);
     }); 
 }
-
+function clearStorage() {
+    var abc = [];
+    chrome.storage.sync.set({'tasksStored': abc}, function() {
+        console.log('Value is set to ' + abc);
+    }); 
+}
 
 
 
@@ -174,21 +183,24 @@ function updateTasks() {
             close[i].onclick = function() {
                 console.log(this.innerHTML);
                 console.log(this.previousSibling);
-
+                
                 // var delTask = this.previousSibling;
                 // console.log("del Task= " + delTask);
                 // //delTask = delTask.toString();
                 // console.log("STRING del Task= " + this.previousSibling.toString());
-
-                var delT = this.previousSibling;
+                
+                delT = this.previousSibling;
                 console.log(typeof delT);
+
+                delT2 = String
+                console.warn(delT2);
                 
                 console.log(this + "del")
                 console.log("before del: " + tasks)
-                var index = tasks.indexOf(this.previousSibling);
+                var index = tasks.indexOf(String(this.previousSibling));
                 console.warn(index)
                 tasks.splice(index, 1);
-
+                
                 console.log("after del: "+tasks);
             var div = this.parentElement;
             div.style.display = "none";
@@ -202,4 +214,18 @@ function clearAll() {
     while (tasksHolderList.firstChild) {
         tasksHolderList.removeChild(tasksHolderList.firstChild);
     }
+}
+
+function randomBackgroungImage() {
+    var baseLink = "https://source.unsplash.com/daily";
+    var keywords = ["mountain", "mountains", "grass", "field", "snow", "cities", "city"];
+    var randNum = Math.floor(Math.random() * (keywords.length - 0));
+    console.log(randNum);
+
+    var link = baseLink + "?" + keywords[1];
+    console.log(link); 
+
+
+    var cssLink = "url(" + link + ")";
+    $("body").css("background-image", cssLink);
 }

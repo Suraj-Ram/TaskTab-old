@@ -1,0 +1,22 @@
+console.log(this.innerHTML);
+console.log(this.previousSibling);
+
+// var delTask = this.previousSibling;
+// console.log("del Task= " + delTask);
+// //delTask = delTask.toString();
+// console.log("STRING del Task= " + this.previousSibling.toString());
+
+var delT = this.previousSibling;
+console.log(typeof delT);
+
+console.log(this + "del")
+console.log("before del: " + tasks)
+var index = tasks.indexOf(String(this.previousSibling));
+console.warn(index)
+tasks.splice(index, 1);
+
+console.log("after del: "+tasks);
+
+//--------------------------
+
+<img src="https://source.unsplash.com/user/erondu/1600x900">
